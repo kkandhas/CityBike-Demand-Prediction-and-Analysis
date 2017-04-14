@@ -4,7 +4,7 @@ import datetime
 
 
 # =========== Pre-process ==========
-df = pd.read_csv('201612-citibike-tripdata.csv')
+df = pd.read_csv('JC-201612-citibike-tripdata.csv')
 
 # Missing values in columns
 print(df.isnull().sum())
@@ -44,7 +44,7 @@ print(df_in.head())
 # Merge two DFs by station_id
 df_dayloss = df_out.merge(right=df_in, left_on=['station_id', 'start_day'], right_on=['station_id', 'start_day'],
                           how='outer')
-df_dayloss = df_dayloss.sort_values('station_id')
+df_dayloss = df_dayloss.sort_values(['station_id', 'start_day'])
 df_dayloss = df_dayloss.fillna(0)
 df_dayloss['bike_loss'] = df_dayloss['bikeout'] - df_dayloss['bikein']
 print(df_dayloss)
