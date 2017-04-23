@@ -8,7 +8,7 @@ def weather_Data(df_climate):
     dates = []
     maxtempF = []
     cltype = []
-    climate = []
+    
     dk = df_climate.drop_duplicates(['start_day'])
 
     for x in dk['start_day']:
@@ -24,7 +24,7 @@ def weather_Data(df_climate):
         maxtempF.append(k['data']['weather'][0]['maxtempF'])
 
         size = len(k['data']['weather'][0]['hourly'])
-
+        climate = []
         for l in range(size):
             climate.append(str(k['data']['weather'][0]['hourly'][l]['weatherDesc'][0].values()).split(" "))
 
@@ -33,7 +33,7 @@ def weather_Data(df_climate):
             cltype.append("snow")
         elif b_any("rain" in x for x in climate):
             cltype.append("rain")
-        elif b_any("sun" in x for x in climate):
+        elif b_any("sunny" in x for x in climate):
             cltype.append("sunny")
         else:
             cltype.append("clear")
